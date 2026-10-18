@@ -1,0 +1,1378 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap');
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+:root {
+   --main-color: #6f4e37;   /* cokelat kopi */
+   --main-dark: #4e3524;    /* espresso */
+   --main-soft: #f3e9df;    /* latte */
+   --main-tint: #ead9c8;    /* latte sedikit lebih pekat (untuk gradasi ikon) */
+   --red: #c0453a;
+   --red-dark: #a23329;
+   --red-soft: #fbe9e5;
+   --orange: #b9722b;       /* karamel */
+   --orange-dark: #99591b;
+   --black: #3b2a20;        /* dark roast */
+   --white: #fff;
+   --light-bg: #f7f1ea;     /* krem */
+   --light-color: #8a7261;  /* mocha */
+   --line: #eadfd3;
+   --border: .1rem solid rgba(234, 223, 211, .7);   /* garis tipis pembatas kartu */
+   --box-shadow: 0 .7rem 2.5rem rgba(59, 42, 32, .08);
+   --box-shadow-hover: 0 1.4rem 3.2rem rgba(59, 42, 32, .22);
+   --radius: 1.2rem;
+   --radius-sm: .8rem;
+
+   --container: 1200px;
+   --header-h: 7rem;
+   --field-h: 4.4rem;      /* tinggi kolom search di toolbar */
+   --field-lg: 5rem;       /* tinggi kolom form (input, select, file) */
+   --ease: .25s cubic-bezier(.4, 0, .2, 1);
+
+   /* panah dropdown seragam di semua browser */
+   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238a7261' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   RESET & BASE
+   ========================================================= */
+* {
+   font-family: 'Montserrat', sans-serif;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   text-decoration: none;
+   outline: none;
+   border: none;
+}
+
+/* elemen form & bagian dalamnya tidak otomatis mengikuti font,
+   jadi dipaksa memakai Montserrat juga */
+input,
+select,
+textarea,
+button,
+option,
+optgroup {
+   font-family: 'Montserrat', sans-serif;
+}
+
+::placeholder {
+   font-family: 'Montserrat', sans-serif;
+   color: var(--light-color);
+   opacity: 1;
+}
+
+::file-selector-button {
+   font-family: 'Montserrat', sans-serif;
+}
+
+html {
+   font-size: 62.5%;
+   overflow-x: hidden;
+   overflow-y: scroll;      /* scrollbar selalu ada, jadi posisi konten tidak bergeser antar halaman */
+   scroll-behavior: smooth;
+}
+
+body {
+   /* cahaya latte lembut di bagian atas halaman */
+   background-color: var(--light-bg);
+   background-image: radial-gradient(900px 380px at 50% 0, rgba(243, 233, 223, .95), rgba(243, 233, 223, 0) 70%);
+   background-repeat: no-repeat;
+   color: var(--black);
+   min-height: 100vh;
+   font-size: 1.4rem;
+   line-height: 1.5;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   text-rendering: optimizeLegibility;
+}
+
+section {
+   max-width: var(--container);
+   margin: 0 auto;
+   padding: 2.5rem 2rem 3rem;
+}
+
+section + section {
+   padding-top: .5rem;
+}
+
+*::selection {
+   color: var(--white);
+   background-color: var(--main-color);
+}
+
+::-webkit-scrollbar {
+   width: 1rem;
+   height: .6rem;
+}
+
+::-webkit-scrollbar-track {
+   background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+   background-color: var(--main-color);
+   border-radius: 1rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+   outline: .2rem solid var(--main-color);
+   outline-offset: .2rem;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+button {
+   outline: none;
+   border: none;
+   border-radius: var(--radius-sm);
+   cursor: pointer;
+}
+
+body .btn,
+body .delete-btn,
+body .option-btn {
+   display: block;
+   margin-top: 1rem;
+   border: 0;
+   border-radius: var(--radius-sm);
+   cursor: pointer;
+   width: 100%;
+   font-size: 1.6rem;
+   font-weight: 500;
+   color: var(--white);
+   padding: 1.2rem 3rem;
+   text-transform: capitalize;
+   text-align: center;
+   transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+.btn {
+   background-color: var(--main-color);
+   box-shadow: 0 .4rem 1rem rgba(111, 78, 55, .25);
+}
+
+.delete-btn {
+   background-color: var(--red);
+   box-shadow: 0 .4rem 1rem rgba(192, 69, 58, .25);
+}
+
+.option-btn {
+   background-color: var(--orange);
+   box-shadow: 0 .4rem 1rem rgba(185, 114, 43, .25);
+}
+
+/* hover memakai warna yang lebih gelap dari warna tombolnya sendiri */
+.btn:hover {
+   background-color: var(--main-dark);
+   box-shadow: 0 .6rem 1.4rem rgba(78, 53, 36, .32);
+}
+
+.delete-btn:hover {
+   background-color: var(--red-dark);
+   box-shadow: 0 .6rem 1.4rem rgba(162, 51, 41, .32);
+}
+
+.option-btn:hover {
+   background-color: var(--orange-dark);
+   box-shadow: 0 .6rem 1.4rem rgba(153, 89, 27, .32);
+}
+
+.btn:hover,
+.delete-btn:hover,
+.option-btn:hover {
+   transform: translateY(-1px);
+}
+
+.btn:active,
+.delete-btn:active,
+.option-btn:active {
+   transform: translateY(0);
+}
+
+.flex-btn {
+   display: flex;
+   gap: 1rem;
+}
+
+.flex-btn > * {
+   flex: 1;
+}
+
+body .add_new {
+   display: inline-block;
+   padding: 1rem 2rem;
+   font-size: 1.4rem;
+   font-weight: 500;
+   color: #ffffff;
+   background-color: var(--main-color);
+   border-radius: var(--radius-sm);
+   box-shadow: 0 .4rem 1rem rgba(111, 78, 55, .25);
+   transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+.add_new:hover {
+   background-color: var(--main-dark);
+   transform: translateY(-1px);
+   box-shadow: 0 .6rem 1.4rem rgba(78, 53, 36, .32);
+}
+
+/* =========================================================
+   TOOLBAR (judul tabel + kolom search)
+   ========================================================= */
+body .table_header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: 1.5rem;
+   padding: 1.5rem 0 1.2rem;
+   background: none;
+}
+
+body .table_header :is(p, h1, h2, h3, h4) {
+   margin: 0;
+   font-size: 2rem;
+   font-weight: 500;
+   color: var(--black);
+}
+
+body .table_header > div {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+body .input_search,
+body .table_header input {
+   height: var(--field-h);
+   padding: 0 1.4rem;
+   font-size: 1.4rem;
+   color: var(--black);
+   background-color: var(--white);
+   border: .1rem solid var(--line);
+   border-radius: var(--radius-sm);
+   transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+body .input_search:focus,
+body .table_header input:focus {
+   border-color: var(--main-color);
+   box-shadow: 0 0 0 .3rem var(--main-soft);
+}
+
+body .table_header button {
+   height: var(--field-h);
+   padding: 0 2.2rem;
+   font-size: 1.4rem;
+   font-weight: 500;
+   color: var(--white);
+   background-color: var(--main-color);
+   border-radius: var(--radius-sm);
+   box-shadow: 0 .4rem 1rem rgba(111, 78, 55, .25);
+   transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+body .table_header button:hover {
+   background-color: var(--main-dark);
+   transform: translateY(-1px);
+   box-shadow: 0 .6rem 1.4rem rgba(78, 53, 36, .32);
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+body .table_section {
+   overflow-x: auto;
+   border-radius: var(--radius);
+}
+
+/* lebar minimum supaya kolom (mis. tanggal) tidak terpotong jadi 2 baris;
+   di layar kecil tabel bisa digeser ke samping */
+body .table_section :is(.table, table) {
+   min-width: 76rem;
+}
+
+body :is(.table, table) {
+   width: 100%;
+   border-collapse: separate;
+   border-spacing: 0;
+   background-color: var(--white);
+   border-radius: var(--radius);
+   box-shadow: var(--box-shadow);
+}
+
+body :is(.table, table) thead th {
+   padding: 1.4rem 1.2rem;
+   background-color: var(--main-color);
+   color: #ffffff;
+   font-size: 1.3rem;
+   font-weight: 500;
+   letter-spacing: .02em;
+   text-align: center;
+   text-transform: capitalize;
+   white-space: nowrap;
+   border: none;
+}
+
+body :is(.table, table) thead tr:first-child th:first-child {
+   border-top-left-radius: var(--radius);
+}
+
+body :is(.table, table) thead tr:first-child th:last-child {
+   border-top-right-radius: var(--radius);
+}
+
+body :is(.table, table) td {
+   padding: 1.4rem 1.2rem;
+   font-size: 1.3rem;
+   line-height: 1.5;
+   color: var(--black);
+   text-align: center;
+   vertical-align: middle;
+   border: none;
+   border-bottom: 1px solid var(--line);
+}
+
+body :is(.table, table) tbody tr {
+   transition: background-color var(--ease);
+}
+
+body :is(.table, table) tbody tr:nth-child(even) {
+   background-color: #fbf7f2;
+}
+
+body :is(.table, table) tbody tr:hover {
+   background-color: var(--main-soft);
+}
+
+body :is(.table, table) tbody tr:last-child td {
+   border-bottom: none;
+}
+
+/* sudut bawah tabel ikut melengkung */
+body :is(.table, table) tbody tr:last-child td:first-child {
+   border-bottom-left-radius: var(--radius);
+}
+
+body :is(.table, table) tbody tr:last-child td:last-child {
+   border-bottom-right-radius: var(--radius);
+}
+
+/* foto produk di dalam tabel */
+body :is(.table, table) td img {
+   display: block;
+   margin: 0 auto;
+   width: 8rem;
+   height: 6rem;
+   object-fit: cover;
+   border-radius: var(--radius-sm);
+   box-shadow: 0 0 0 .1rem var(--line);
+}
+
+/* ikon aksi (edit / hapus) */
+body :is(.table, table) td a {
+   display: inline-block;
+   vertical-align: middle;
+}
+
+body :is(.table, table) td a + a {
+   margin-left: .6rem;
+}
+
+body :is(.table, table) td a i {
+   display: inline-grid;
+   place-items: center;
+   width: 3.6rem;
+   height: 3.6rem;
+   font-size: 1.6rem;
+   color: var(--main-color);
+   background-color: var(--main-soft);
+   border-radius: var(--radius-sm);
+   transition: color var(--ease), background-color var(--ease), transform var(--ease);
+}
+
+body :is(.table, table) td a:hover i {
+   color: var(--white);
+   background-color: var(--main-color);
+   transform: translateY(-1px);
+}
+
+body :is(.table, table) td a:is([href*="delete" i], [href*="remove" i]) i {
+   color: var(--red);
+   background-color: var(--red-soft);
+}
+
+body :is(.table, table) td a:is([href*="delete" i], [href*="remove" i]):hover i {
+   color: var(--white);
+   background-color: var(--red);
+}
+
+/* tombol & dropdown di dalam tabel */
+body :is(.table, table) td .btn,
+body :is(.table, table) td .delete-btn,
+body :is(.table, table) td .option-btn {
+   margin-top: 0;
+   padding: .9rem 1.4rem;
+   font-size: 1.3rem;
+}
+
+body .drop-down,
+body :is(.table, table) td select {
+   width: 100%;
+   padding: .8rem 3.4rem .8rem 1.2rem;
+   margin: 0 0 1rem;
+   font-size: 1.3rem;
+   color: var(--black);
+   background-color: var(--white);
+   background-image: var(--chevron);
+   background-repeat: no-repeat;
+   background-position: right 1.1rem center;
+   background-size: 1.2rem;
+   border: .1rem solid var(--line);
+   border-radius: var(--radius-sm);
+   cursor: pointer;
+   -webkit-appearance: none;
+   appearance: none;
+}
+
+/* tabel responsif (mobile) */
+@media (max-width: 500px) {
+   body .table_section .table {
+      min-width: 0;
+   }
+
+   .table thead {
+      display: none;
+   }
+
+   .table,
+   .table tbody,
+   .table tr,
+   .table td {
+      display: block;
+      width: 100%;
+   }
+
+   body .table {
+      background: none;
+      box-shadow: none;
+   }
+
+   .table tr {
+      margin-bottom: 1.5rem;
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+   }
+
+   .table td {
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+   }
+
+   .table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-align: left;
+      color: var(--black);
+   }
+}
+
+/* =========================================================
+   MESSAGE, HEADING & EMPTY
+   ========================================================= */
+.message {
+   position: sticky;
+   top: calc(var(--header-h) + 1rem);   /* menempel di bawah header, tidak tertutup */
+   width: calc(100% - 4rem);
+   max-width: var(--container);
+   margin: 1.5rem auto 0;
+   background-color: var(--white);
+   border-left: .4rem solid var(--main-color);
+   border-radius: 0 var(--radius) var(--radius) 0;
+   box-shadow: var(--box-shadow);
+   padding: 1.5rem 2rem;
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   justify-content: space-between;
+   z-index: 999;
+}
+
+.message span {
+   font-size: 1.5rem;
+   color: var(--black);
+}
+
+.message i {
+   font-size: 2rem;
+   color: var(--red);
+   cursor: pointer;
+   transition: color var(--ease), transform var(--ease);
+}
+
+.message i:hover {
+   color: var(--black);
+   transform: scale(1.1);
+}
+
+/* judul halaman: huruf kapital, tebal, dengan garis kecil cokelat di bawahnya
+   (sama dengan dashboard Admin) */
+.heading {
+   position: relative;
+   text-align: center;
+   margin: .5rem 0 2.4rem;
+   padding: 0 0 1.6rem .12em;
+   text-transform: uppercase;
+   color: var(--black);
+   font-size: 3rem;
+   font-weight: 600;
+   letter-spacing: .12em;
+}
+
+.heading::after {
+   content: "";
+   position: absolute;
+   left: 50%;
+   bottom: 0;
+   width: 4.8rem;
+   height: .3rem;
+   border-radius: .3rem;
+   background-color: var(--main-color);
+   transform: translateX(-50%);
+}
+
+.empty {
+   border: var(--border);
+   border-radius: var(--radius);
+   background-color: var(--white);
+   padding: 2rem;
+   text-align: center;
+   width: 100%;
+   font-size: 1.8rem;
+   text-transform: capitalize;
+   color: var(--red);
+   box-shadow: var(--box-shadow);
+}
+
+/* =========================================================
+   FORM FIELD (dipakai bersama)
+   ========================================================= */
+.form-container form .box,
+.add-products form .box,
+.update-product form .box {
+   display: block;
+   width: 100%;
+   background-color: var(--light-bg);
+   color: var(--black);
+   border: .1rem solid var(--line);
+   border-radius: var(--radius-sm);
+   transition: border-color var(--ease), background-color var(--ease), box-shadow var(--ease);
+}
+
+.form-container form .box:hover,
+.add-products form .box:hover,
+.update-product form .box:hover {
+   border-color: var(--main-tint);
+}
+
+.form-container form .box:focus,
+.add-products form .box:focus,
+.update-product form .box:focus {
+   border-color: var(--main-color);
+   background-color: var(--white);
+   box-shadow: 0 0 0 .3rem var(--main-soft);
+}
+
+.form-container form .box:focus-visible,
+.add-products form .box:focus-visible,
+.update-product form .box:focus-visible {
+   outline: none;
+}
+
+/* input, select, dan file dibuat sama tinggi supaya sejajar rapi */
+:is(.form-container, .add-products, .update-product) form :is(input, select).box {
+   height: var(--field-lg);
+   padding: 0 1.4rem;
+}
+
+/* dropdown di form: panah sendiri supaya tampilannya sama di semua browser */
+:is(.form-container, .add-products, .update-product) form select.box {
+   padding-right: 3.8rem;
+   background-image: var(--chevron);
+   background-repeat: no-repeat;
+   background-position: right 1.4rem center;
+   background-size: 1.2rem;
+   cursor: pointer;
+   -webkit-appearance: none;
+   appearance: none;
+}
+
+.add-products form input[type="file"].box,
+.update-product form input[type="file"].box {
+   padding: 0 1rem;
+   font-size: 1.4rem;
+   color: var(--light-color);
+   cursor: pointer;
+}
+
+.add-products form input[type="file"].box::file-selector-button,
+.update-product form input[type="file"].box::file-selector-button {
+   margin-right: 1.2rem;
+   padding: .7rem 1.4rem;
+   font-size: 1.3rem;
+   font-weight: 500;
+   color: var(--main-color);
+   background-color: var(--main-soft);
+   border: none;
+   border-radius: var(--radius-sm);
+   cursor: pointer;
+   transition: background-color var(--ease), color var(--ease);
+}
+
+.add-products form input[type="file"].box::file-selector-button:hover,
+.update-product form input[type="file"].box::file-selector-button:hover {
+   background-color: var(--main-color);
+   color: var(--white);
+}
+
+/* =========================================================
+   LOGIN / REGISTER
+   ========================================================= */
+.form-container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-height: 100vh;
+   padding: 2rem;
+}
+
+.form-container form {
+   background-color: var(--white);
+   border-radius: var(--radius);
+   border: var(--border);
+   box-shadow: var(--box-shadow);
+   padding: 3.2rem;
+   text-align: center;
+   width: 50rem;
+   max-width: 100%;
+}
+
+.form-container form h3 {
+   font-size: 2.5rem;
+   font-weight: 500;
+   color: var(--black);
+   text-transform: capitalize;
+   margin-bottom: 1rem;
+}
+
+.form-container form p {
+   margin: 1rem 0;
+   font-size: 1.6rem;
+   color: var(--light-color);
+}
+
+.form-container form p span {
+   color: var(--main-color);
+}
+
+.form-container form .box {
+   padding: 1.4rem;
+   margin: 1rem 0;
+   font-size: 1.6rem;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+.header {
+   position: sticky;
+   top: 0;
+   left: 0;
+   right: 0;
+   background-color: rgba(255, 255, 255, .92);
+   -webkit-backdrop-filter: saturate(160%) blur(1rem);
+   backdrop-filter: saturate(160%) blur(1rem);
+   box-shadow: 0 .4rem 2rem rgba(59, 42, 32, .06);
+   z-index: 1000;
+   border-bottom: .1rem solid var(--line);
+}
+
+/* 3 kolom: logo | menu | ikon -> menu selalu tepat di tengah */
+.header .flex {
+   display: grid;
+   grid-template-columns: 1fr auto 1fr;
+   align-items: center;
+   position: relative;
+   height: var(--header-h);
+   padding-top: 0;
+   padding-bottom: 0;
+}
+
+.header .flex .logo {
+   grid-column: 1;
+   justify-self: start;
+   font-size: 2.4rem;
+   font-weight: 300;
+   color: var(--black);
+}
+
+.header .flex .logo span {
+   color: var(--main-color);
+   font-weight: 500;
+}
+
+.header .flex .navbar {
+   grid-column: 2;
+   display: flex;
+   align-items: center;
+   gap: .2rem;
+}
+
+.header .flex .navbar a {
+   position: relative;
+   margin: 0;
+   padding: .8rem 1.5rem;
+   border-radius: var(--radius-sm);
+   font-size: 1.45rem;
+   letter-spacing: .01em;
+   color: var(--light-color);
+   text-transform: capitalize;
+   transition: color var(--ease), background-color var(--ease);
+}
+
+/* garis kecil di bawah menu saat disorot / aktif */
+.header .flex .navbar a::after {
+   content: "";
+   position: absolute;
+   left: 50%;
+   bottom: .4rem;
+   width: 0;
+   height: .2rem;
+   border-radius: .2rem;
+   background-color: var(--main-color);
+   transform: translateX(-50%);
+   transition: width var(--ease);
+}
+
+.header .flex .navbar a:hover::after,
+.header .flex .navbar a.active::after {
+   width: 1.8rem;
+}
+
+.header .flex .navbar a:hover,
+.header .flex .navbar a.active {
+   color: var(--main-color);
+   background-color: var(--main-soft);
+}
+
+.header .flex .icons {
+   grid-column: 3;
+   justify-self: end;
+   display: flex;
+   align-items: center;
+}
+
+.header .flex .icons>* {
+   font-size: 2.3rem;
+   cursor: pointer;
+   color: var(--light-color);
+   margin-left: 1.7rem;
+   transition: color var(--ease), transform var(--ease);
+}
+
+.header .flex .icons>*:hover {
+   color: var(--main-color);
+   transform: translateY(-1px);
+}
+
+.header .flex .profile {
+   position: absolute;
+   top: calc(100% + 1rem);
+   right: 2rem;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow-hover);
+   border: var(--border);
+   border-radius: var(--radius);
+   padding: 2rem;
+   padding-top: 1rem;
+   width: 30rem;
+   display: none;
+   animation: fadeIn .2s linear;
+}
+
+@keyframes fadeIn {
+   0% {
+      transform: translateY(1rem);
+      opacity: 0;
+   }
+}
+
+.header .flex .profile p {
+   margin-bottom: 1rem;
+   font-size: 1.8rem;
+   text-align: center;
+   color: var(--black);
+}
+
+.header .flex .profile.active {
+   display: inline-block;
+}
+
+#menu-btn {
+   display: none;
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+/* Kotak welcome dan kelompok kartu statistik dibuat sama lebar, sejajar, dan di tengah.
+   Kartu: 5 per baris (1 baris), sama lebar; kartu sisa otomatis di tengah.
+   Mendukung dua susunan HTML:  .box-container > .box   dan   .cardBox > .card
+
+   Ukuran kartu diatur lewat variabel di bawah ini (versi ringkas untuk 5 kotak).
+   Di layar <= 1100px ukurannya kembali ke versi normal (lihat MEDIA QUERIES). */
+body :is(.dashboard .box-container, .cardBox) {
+   --cols: 5;
+   --gap: 1.6rem;
+
+   --card-pad: 1.8rem;        /* padding dalam kartu */
+   --card-min-h: 10rem;       /* tinggi minimum kartu */
+   --card-inner-gap: 1rem;    /* jarak teks dan ikon */
+   --num-size: 2.8rem;        /* ukuran angka */
+   --num-span: 1.8rem;        /* ukuran <span> dalam angka */
+   --name-size: 1.3rem;       /* ukuran nama kartu */
+   --icon-box: 4.4rem;        /* ukuran kotak ikon */
+   --icon-size: 2.2rem;       /* ukuran ikon */
+   --icon-radius: 1.2rem;     /* lengkung kotak ikon */
+
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: stretch;
+   gap: var(--gap);
+   width: 100%;
+   max-width: 1120px;
+   margin: 0 auto;
+   padding: 0;
+}
+
+body :is(.dashboard .box-container, .cardBox) + :is(.box-container, .cardBox) {
+   margin-top: 2rem;
+}
+
+/* Kalau halaman ini juga memuat CSS Admin (admin_panel.css), gaya "judul" miliknya
+   bisa bocor ke elemen yang berada tepat sebelum .cardBox (pembungkus kotak welcome).
+   Bagian ini menetralkannya, apa pun elemen pembungkusnya. */
+body :is(section, div):not(.cardBox):has(+ .cardBox) {
+   margin-top: 0 !important;
+   margin-bottom: 0 !important;
+   font-size: 1.4rem !important;
+   font-weight: 400 !important;
+   letter-spacing: normal !important;
+   text-transform: none !important;
+   text-align: left !important;
+   color: inherit !important;
+}
+
+body section:has(+ .cardBox) {
+   padding-bottom: 1rem !important;
+}
+
+body div:not(.cardBox):has(+ .cardBox) {
+   padding-bottom: 0 !important;
+}
+
+body :is(section, div):not(.cardBox):has(+ .cardBox)::after {
+   content: none !important;
+}
+
+/* ---------- kartu statistik ---------- */
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card) {
+   position: relative;
+   overflow: hidden;
+   flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
+   max-width: 100%;
+   min-width: 0;
+   min-height: var(--card-min-h);
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+   gap: var(--card-inner-gap);
+   padding: var(--card-pad);
+   text-align: left;
+   background-color: var(--white);
+   border: var(--border);
+   border-radius: var(--radius);
+   box-shadow: var(--box-shadow);
+   cursor: default;
+   transition: transform var(--ease), box-shadow var(--ease), background var(--ease), border-color var(--ease);
+   animation: riseIn .5s ease backwards;
+}
+
+/* lingkaran halus di pojok kartu, baru terlihat saat disorot */
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card)::after {
+   content: "";
+   position: absolute;
+   right: -3.4rem;
+   bottom: -4.6rem;
+   width: 13rem;
+   height: 13rem;
+   border-radius: 50%;
+   background: rgba(255, 255, 255, .08);
+   opacity: 0;
+   transform: scale(.6);
+   transition: opacity var(--ease), transform .4s ease;
+   pointer-events: none;
+}
+
+/* bagian teks (angka + nama) boleh mengecil supaya tidak mendorong ikon keluar kotak */
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card) > div:not(.iconBx) {
+   position: relative;
+   z-index: 1;
+   min-width: 0;
+}
+
+/* kartu muncul bergantian dari bawah (halus) */
+body :is(.dashboard .box-container, .cardBox) > :nth-child(2) { animation-delay: .05s; }
+body :is(.dashboard .box-container, .cardBox) > :nth-child(3) { animation-delay: .1s; }
+body :is(.dashboard .box-container, .cardBox) > :nth-child(4) { animation-delay: .15s; }
+body :is(.dashboard .box-container, .cardBox) > :nth-child(5) { animation-delay: .2s; }
+body :is(.dashboard .box-container, .cardBox) > :nth-child(6) { animation-delay: .25s; }
+
+@keyframes riseIn {
+   from {
+      opacity: 0;
+      transform: translateY(1.2rem);
+   }
+}
+
+/* angka */
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card) :is(h3, .numbers) {
+   font-size: var(--num-size);
+   font-weight: 500;
+   line-height: 1.2;
+   letter-spacing: -.01em;
+   text-align: left;
+   font-variant-numeric: tabular-nums;
+   overflow-wrap: anywhere;
+   color: var(--black);
+   transition: color var(--ease);
+}
+
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card) h3 span {
+   font-size: var(--num-span);
+}
+
+/* nama kartu */
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card) :is(p, .cardName) {
+   margin: .6rem 0 0;
+   padding: 0;
+   border: none;
+   background: none;
+   font-size: var(--name-size);
+   font-weight: 400;
+   letter-spacing: .01em;
+   text-align: left;
+   text-transform: capitalize;
+   color: var(--light-color);
+   transition: color var(--ease);
+}
+
+/* ikon dalam kotak latte */
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card) > :is(i, ion-icon, svg, .iconBx) {
+   position: relative;
+   z-index: 1;
+   flex-shrink: 0;
+   display: grid;
+   place-items: center;
+   width: var(--icon-box);
+   height: var(--icon-box);
+   padding: 0;
+   font-size: var(--icon-size);
+   color: var(--main-color);
+   background: linear-gradient(145deg, var(--main-soft), var(--main-tint));
+   border-radius: var(--icon-radius);
+   transition: color var(--ease), background var(--ease), transform var(--ease);
+}
+
+/* hover kartu: gradasi cokelat kopi.
+   !important dipakai supaya menang dari aturan hitam di tempat lain */
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card):hover {
+   background: linear-gradient(135deg, var(--main-color) 0%, var(--main-dark) 100%) !important;
+   border-color: var(--main-color);
+   transform: translateY(-4px);
+   box-shadow: var(--box-shadow-hover);
+}
+
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card):hover::after {
+   opacity: 1;
+   transform: scale(1);
+}
+
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card):hover :is(h3, .numbers) {
+   color: var(--white) !important;
+}
+
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card):hover :is(p, .cardName) {
+   color: rgba(255, 255, 255, .82) !important;
+}
+
+body :is(.dashboard .box-container .box:has(i, ion-icon, svg, img), .cardBox .card):hover > :is(i, ion-icon, svg, .iconBx) {
+   color: var(--white) !important;
+   background: rgba(255, 255, 255, .16) !important;
+   transform: scale(1.06) rotate(-4deg);
+}
+
+/* ---------- kotak "welcome" ---------- */
+body .dashboard .box-container .box:not(:has(i, ion-icon, svg, img)) {
+   flex: 0 0 100%;
+   max-width: 100%;
+   padding: 2.4rem;
+   text-align: center;
+   background-color: var(--white);
+   border: var(--border);
+   border-radius: var(--radius);
+   box-shadow: var(--box-shadow);
+   animation: riseIn .5s ease backwards;
+}
+
+body .dashboard .box-container .box:not(:has(i, ion-icon, svg, img)) h3 {
+   font-size: 2.6rem;
+   font-weight: 500;
+   line-height: 1.2;
+   letter-spacing: 0;
+   text-transform: capitalize;
+   color: var(--black);
+}
+
+body .dashboard .box-container .box:not(:has(i, ion-icon, svg, img)) p {
+   margin: 1.2rem 0 0;
+   padding: 1rem;
+   border: none;
+   border-radius: var(--radius-sm);
+   background-color: var(--light-bg);
+   font-size: 1.5rem;
+   font-weight: 500;
+   letter-spacing: .02em;
+   text-transform: capitalize;
+   color: var(--main-color);
+}
+
+/* kotak welcome tidak berubah warna saat di-hover */
+body .dashboard .box-container .box:not(:has(i, ion-icon, svg, img)):hover {
+   background-color: var(--white) !important;
+   transform: none;
+   box-shadow: var(--box-shadow);
+}
+
+body .dashboard .box-container .box:not(:has(i, ion-icon, svg, img)):hover h3 {
+   color: var(--black) !important;
+}
+
+body .dashboard .box-container .box:not(:has(i, ion-icon, svg, img)):hover p {
+   color: var(--main-color) !important;
+}
+
+/* =========================================================
+   PRODUCTS
+   ========================================================= */
+.add-products form {
+   margin: 0 auto;
+   background-color: var(--white);
+   border-radius: var(--radius);
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   padding: 2.5rem;
+   text-align: center;
+}
+
+.add-products form h3 {
+   margin-bottom: 1.5rem;
+   font-size: 2.5rem;
+   font-weight: 500;
+   color: var(--black);
+   text-transform: capitalize;
+}
+
+.add-products form .box {
+   padding: 1.2rem;
+   font-size: 1.5rem;
+   margin-bottom: 1rem;
+}
+
+.show-products .box-container,
+.placed-orders .box-container,
+.accounts .box-container,
+.messages .box-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap: 1.5rem;
+   justify-content: center;
+   align-items: stretch;
+}
+
+.show-products .box-container .box,
+.placed-orders .box-container .box,
+.accounts .box-container .box,
+.messages .box-container .box {
+   background-color: var(--white);
+   border-radius: var(--radius);
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   padding: 2rem;
+   transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+
+.show-products .box-container .box:hover,
+.placed-orders .box-container .box:hover,
+.accounts .box-container .box:hover {
+   transform: translateY(-4px);
+   box-shadow: var(--box-shadow-hover);
+   border-color: var(--main-tint);
+}
+
+.show-products .box-container .box {
+   padding: 1.5rem;
+}
+
+.show-products .box-container .box img {
+   width: 100%;
+   height: 20rem;
+   object-fit: contain;
+   margin-bottom: 1rem;
+   background-color: var(--light-bg);
+   border-radius: var(--radius-sm);
+   padding: 1rem;
+}
+
+.show-products .box-container .box .name {
+   font-size: 2rem;
+   font-weight: 500;
+   color: var(--black);
+   padding: 1rem 0;
+}
+
+.show-products .box-container .box .flex {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   justify-content: space-between;
+}
+
+.show-products .box-container .box .flex .category {
+   font-size: 1.6rem;
+   color: var(--main-color);
+}
+
+.show-products .box-container .box .flex .price {
+   font-size: 2rem;
+   font-weight: 500;
+   color: var(--black);
+   margin: .5rem 0;
+}
+
+.show-products .box-container .box .flex .price span {
+   font-size: 1.5rem;
+}
+
+.update-product form {
+   margin: 0 auto;
+   max-width: 50rem;
+   background-color: var(--white);
+   border-radius: var(--radius);
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   padding: 2.5rem;
+}
+
+.update-product form img {
+   height: 25rem;
+   width: 100%;
+   object-fit: contain;
+}
+
+.update-product form .box {
+   padding: 1.4rem;
+   font-size: 1.6rem;
+   margin: 1rem 0;
+}
+
+.update-product form textarea {
+   height: 15rem;
+   resize: none;
+}
+
+.update-product form span {
+   font-size: 1.6rem;
+   color: var(--black);
+}
+
+/* =========================================================
+   ORDERS / ACCOUNTS / MESSAGES (isi kartu)
+   ========================================================= */
+.placed-orders .box-container .box {
+   padding-top: 1.5rem;
+}
+
+.placed-orders .box-container .box p {
+   line-height: 1.6;
+   font-size: 1.5rem;
+   color: var(--black);
+   padding: .3rem 0;
+}
+
+.accounts .box-container .box {
+   padding-top: 1.5rem;
+   text-align: center;
+}
+
+.messages .box-container .box {
+   padding-top: 1.5rem;
+}
+
+.accounts .box-container .box p,
+.messages .box-container .box p {
+   padding: .5rem 0;
+   font-size: 1.6rem;
+   color: var(--black);
+}
+
+.placed-orders .box-container .box p span,
+.accounts .box-container .box p span,
+.messages .box-container .box p span {
+   color: var(--main-color);
+   font-weight: 500;
+}
+
+/* =========================================================
+   MEDIA QUERIES
+   ========================================================= */
+
+/* <= 1100px: 5 kotak mulai sempit, jadi 3 kolom dengan ukuran kartu normal */
+@media (max-width: 1100px) {
+   body :is(.dashboard .box-container, .cardBox) {
+      --cols: 3;
+      --gap: 2rem;
+      --card-pad: 2.4rem;
+      --card-min-h: 11.8rem;
+      --card-inner-gap: 1.4rem;
+      --num-size: 3.6rem;
+      --num-span: 2.2rem;
+      --name-size: 1.5rem;
+      --icon-box: 5.2rem;
+      --icon-size: 2.6rem;
+      --icon-radius: 1.4rem;
+   }
+}
+
+@media (max-width: 991px) {
+   html {
+      font-size: 55%;
+   }
+
+   body :is(.dashboard .box-container, .cardBox) {
+      --cols: 2;
+   }
+}
+
+@media (max-width: 768px) {
+   #menu-btn {
+      display: inline-block;
+   }
+
+   .header .flex {
+      display: flex;
+      justify-content: space-between;
+   }
+
+   .header .flex .navbar {
+      position: absolute;
+      top: 99%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 1rem 2rem;
+      border-top: var(--border);
+      border-bottom: var(--border);
+      background-color: var(--white);
+      box-shadow: var(--box-shadow);
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      transition: .2s linear;
+   }
+
+   .header .flex .navbar.active {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+   }
+
+   .header .flex .navbar a {
+      display: block;
+      margin: .5rem 0;
+      padding: 1rem 1.4rem;
+   }
+
+   /* garis kecil tidak dipakai di menu turun */
+   .header .flex .navbar a::after {
+      display: none;
+   }
+
+   body .table_header > div {
+      width: 100%;
+   }
+
+   body .table_header input {
+      flex: 1;
+      min-width: 0;
+   }
+}
+
+@media (max-width: 450px) {
+   html {
+      font-size: 50%;
+   }
+
+   .flex-btn {
+      flex-flow: column;
+      gap: 0;
+   }
+
+   .heading {
+      font-size: 2.6rem;
+   }
+
+   body :is(.dashboard .box-container, .cardBox) {
+      --cols: 1;
+   }
+
+   .show-products .box-container,
+   .placed-orders .box-container,
+   .accounts .box-container,
+   .messages .box-container {
+      grid-template-columns: 1fr;
+   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+   * {
+      transition: none !important;
+      animation: none !important;
+   }
+}

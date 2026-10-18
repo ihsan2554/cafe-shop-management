@@ -1,0 +1,410 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* =========================================================
+   VARIABLES (palet coffee shop, sama dengan Admin & Employee Panel)
+   ========================================================= */
+:root {
+  --main-color: #6f4e37;   /* cokelat kopi */
+  --main-dark: #4e3524;    /* espresso */
+  --main-soft: #f3e9df;    /* latte */
+  --main-tint: #ead9c8;    /* latte sedikit lebih pekat */
+  --black: #3b2a20;        /* dark roast: teks utama */
+  --light-color: #8a7261;  /* mocha: teks sekunder */
+  --light-bg: #f7f1ea;     /* krem: latar halaman */
+  --white: #fff;
+  --line: #eadfd3;
+  --red: #c0453a;
+
+  --shadow: 0 0.7rem 2.5rem rgba(59, 42, 32, 0.08);
+  --shadow-card: 0 1rem 3.5rem rgba(59, 42, 32, 0.1), 0 0.2rem 0.6rem rgba(59, 42, 32, 0.04);
+  --radius: 1.4rem;
+  --radius-sm: 0.9rem;
+  --ease: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --card-w: 45rem;         /* lebar kartu form */
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;   /* padding tidak menambah ukuran, jadi halaman tidak ikut bisa di-scroll */
+}
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+*::selection {
+  color: var(--white);
+  background-color: var(--main-color);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 2rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* form selalu tepat di tengah layar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--black);
+  background-color: var(--light-bg);
+  /* cahaya latte lembut di bagian atas halaman */
+  background-image: radial-gradient(900px 380px at 50% 0, rgba(243, 233, 223, 0.95), rgba(243, 233, 223, 0) 70%);
+  background-repeat: no-repeat;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* motif cincin bekas cangkir kopi di belakang kartu: sangat samar, hanya penghias latar */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    transparent 0,
+    transparent 7.4rem,
+    rgba(111, 78, 55, 0.07) 7.4rem,
+    rgba(111, 78, 55, 0.07) 7.5rem
+  );
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0, transparent 62%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0, transparent 62%);
+}
+
+/* =========================================================
+   JUDUL (Admin login / Employee login)
+   ========================================================= */
+h1 {
+  position: relative;
+  text-align: center;
+  margin: 0.4rem 0 2.4rem;
+  padding: 0 0 1.3rem 0.12em;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+/* garis kecil cokelat di bawah judul (sama dengan judul halaman lain) */
+h1::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 3.2rem;
+  height: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: var(--main-color);
+  transform: translateX(-50%);
+}
+
+/* =========================================================
+   KARTU FORM
+   ========================================================= */
+form {
+  position: relative;
+  width: var(--card-w);
+  max-width: 100%;
+  margin: auto;
+  padding: 2.8rem 3rem 3.2rem;
+  background-color: var(--white);
+  border: 1px solid rgba(234, 223, 211, 0.8);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  animation: riseIn 0.5s ease backwards;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(1.2rem);
+  }
+}
+
+section {
+  margin-bottom: 1rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   LABEL & KOLOM ISIAN
+   ========================================================= */
+label {
+  display: block;
+  margin: 1.4rem 0 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--light-color);
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 400;
+  display: block;
+  width: 100%;
+  min-height: 3.4rem;
+  padding: 0.9rem 1.2rem;
+  color: var(--black);
+  caret-color: var(--main-color);
+  background-color: var(--light-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--ease), background-color var(--ease), box-shadow var(--ease);
+}
+
+/* titik-titik password dibuat lebih jelas dan lega */
+input[type="password"] {
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+}
+
+input[type="password"]::placeholder {
+  letter-spacing: normal;
+}
+
+::placeholder {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--light-color);
+  opacity: 0.75;
+}
+
+textarea {
+  resize: none;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--main-tint);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  background-color: var(--white);
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 0.3rem var(--main-soft);
+}
+
+/* isian otomatis dari browser (autofill) tetap memakai font & warna tema */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  -webkit-text-fill-color: var(--black);
+  -webkit-box-shadow: 0 0 0 100px var(--light-bg) inset;
+  caret-color: var(--main-color);
+  transition: background-color 9999s ease-out 0s;
+}
+
+input[type="password"]:-webkit-autofill {
+  font-size: 1.05rem;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px var(--white) inset, 0 0 0 0.3rem var(--main-soft);
+}
+
+/* =========================================================
+   TOMBOL
+   ========================================================= */
+button {
+  font: inherit;
+  border: 1px solid var(--main-color);
+  padding: 0.6rem 1.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--ease), border-color var(--ease), color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+/* tombol "login now" (input submit) dibuat lebar penuh & berwarna cokelat kopi */
+input[type="submit"],
+input[type="button"] {
+  margin-top: 2rem;
+  min-height: 3.6rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-transform: capitalize;
+  color: var(--white);
+  background-color: var(--main-color);
+  border: 1px solid var(--main-color);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0.5rem 1.2rem rgba(111, 78, 55, 0.28);
+  cursor: pointer;
+  transition: background-color var(--ease), border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: var(--main-dark);
+  border-color: var(--main-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 0.8rem 1.8rem rgba(78, 53, 36, 0.34);
+}
+
+input[type="submit"]:active,
+input[type="button"]:active {
+  transform: translateY(0);
+  box-shadow: 0 0.3rem 0.8rem rgba(78, 53, 36, 0.28);
+}
+
+input[type="submit"]:focus-visible,
+input[type="button"]:focus-visible,
+button:focus-visible {
+  outline: 0.2rem solid var(--main-color);
+  outline-offset: 0.25rem;
+  background-color: var(--main-dark);
+}
+
+input[type="submit"]:disabled,
+input[type="button"]:disabled,
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+#form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  text-align: right;
+}
+
+.btn-filled {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+  color: var(--white);
+  box-shadow: 0 0.4rem 1rem rgba(111, 78, 55, 0.25);
+}
+
+.btn-empty {
+  background-color: transparent;
+  border-color: var(--main-color);
+  color: var(--main-color);
+}
+
+.btn-filled:hover {
+  background-color: var(--main-dark);
+  border-color: var(--main-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 0.6rem 1.4rem rgba(78, 53, 36, 0.32);
+}
+
+.btn-empty:hover {
+  background-color: var(--main-soft);
+}
+
+/* =========================================================
+   KONTROL SEJAJAR (checkbox, dll.)
+   ========================================================= */
+.inline-control {
+  display: flex;
+  align-items: center;
+}
+
+.inline-control label {
+  margin: 0;
+  margin-left: 0.6rem;
+}
+
+.inline-control input {
+  width: auto;
+  min-height: 0;
+  accent-color: var(--main-color);
+  cursor: pointer;
+}
+
+/* =========================================================
+   PESAN (mis. username / password salah)
+   ========================================================= */
+.message {
+  width: var(--card-w);
+  max-width: 100%;
+  margin: 0 auto 1.4rem;
+  padding: 1.1rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--black);
+  background-color: var(--white);
+  border: 1px solid rgba(234, 223, 211, 0.8);
+  border-left: 0.4rem solid var(--red);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  box-shadow: var(--shadow);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 480px) {
+  body {
+    padding: 1.4rem;
+  }
+
+  form {
+    padding: 2.2rem 1.6rem 2.4rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-height: 560px) {
+  /* layar landscape yang pendek: rapatkan jarak supaya tidak terlalu panjang */
+  body {
+    padding: 1rem;
+  }
+
+  form {
+    padding-top: 1.8rem;
+    padding-bottom: 2rem;
+  }
+
+  h1 {
+    margin-bottom: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
