@@ -19,7 +19,7 @@ Web application for an online cafe shop. Customers can order food and drinks onl
 <img src="uploaded_img/k1.png" alt="Home Page User" width="800">
 
 ### Menu Page
-<img src="uploaded_img/k2.png" alt="Menu Page" width="800">
+<img src="uploaded_img/k5.png" alt="Menu Page" width="800">
 
 ### Home Page Admin
 <img src="uploaded_img/k3.png" alt="Home Page Admin" width="800">
