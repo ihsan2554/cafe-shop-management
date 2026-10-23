@@ -148,8 +148,17 @@ hr {
 
 /* =========================================================
    BANNER JUDUL HALAMAN (.heading)
+   Warna & font tetap (cokelat kopi + Montserrat). Yang ditambah:
+   - cahaya karamel lembut di latar (tanpa titik-titik)
+   - ikon cangkir kopi samar di kiri & kanan (dekorasi, di belakang teks)
+   - garis pemisah berikon cangkir di bawah judul (bukan garis polos lagi)
+   - breadcrumb berbentuk pil
+   - garis cokelat tipis di tepi bawah banner + animasi muncul halus
    ========================================================= */
 .heading {
+   position: relative;
+   isolation: isolate;       /* dekorasi z-index:-1 tetap di dalam banner, di belakang teks */
+   overflow: hidden;
    display: flex;
    text-align: center;
    align-items: center;
@@ -157,9 +166,41 @@ hr {
    gap: 1rem;
    flex-flow: column;
    padding: 5rem 2rem;
-   background: linear-gradient(135deg, var(--black), var(--main-dark));
    min-height: 20rem;
+   background:
+      radial-gradient(circle at 12% 20%, rgba(224, 177, 131, .16), transparent 38%),
+      radial-gradient(circle at 88% 85%, rgba(224, 177, 131, .12), transparent 42%),
+      linear-gradient(135deg, var(--black), var(--main-dark));
+   border-bottom: .3rem solid var(--main-color);
    z-index: inherit;
+}
+
+/* dekorasi: ikon cangkir kopi besar & samar (kiri bawah dan kanan atas) */
+.heading::before,
+.heading::after {
+   position: absolute;
+   z-index: -1;
+   font-family: "Font Awesome 6 Free";
+   font-weight: 900;
+   line-height: 1;
+   color: rgba(224, 177, 131, .09);
+   pointer-events: none;
+}
+
+.heading::before {
+   content: "\f0f4";
+   left: 7%;
+   bottom: -3rem;
+   font-size: 18rem;
+   transform: rotate(-14deg);
+}
+
+.heading::after {
+   content: "\f7b6";
+   right: 7%;
+   top: -2.5rem;
+   font-size: 16rem;
+   transform: rotate(14deg);
 }
 
 .heading h3 {
@@ -168,21 +209,41 @@ hr {
    letter-spacing: .08em;
    color: var(--white);
    text-transform: uppercase;
+   text-shadow: 0 .2rem 1.2rem rgba(0, 0, 0, .25);
+   animation: headingIn .6s ease both;
 }
 
+/* garis pemisah: garis memudar - ikon cangkir - garis memudar */
 .heading h3::after {
-   content: "";
+   content: "\f0f4";
    display: block;
-   width: 4.4rem;
-   height: .3rem;
-   margin: 1.4rem auto 0;
-   border-radius: .3rem;
-   background-color: var(--caramel);
+   width: 16rem;
+   margin: 1.6rem auto 0;
+   font-family: "Font Awesome 6 Free";
+   font-weight: 900;
+   font-size: 1.8rem;
+   line-height: 2rem;
+   letter-spacing: 0;
+   text-transform: none;
+   text-shadow: none;
+   color: var(--caramel);
+   background:
+      linear-gradient(90deg, transparent, var(--caramel)) left center / 5.4rem .2rem no-repeat,
+      linear-gradient(270deg, transparent, var(--caramel)) right center / 5.4rem .2rem no-repeat;
 }
 
+/* breadcrumb dalam bentuk pil */
 .heading p {
-   font-size: 1.6rem;
-   color: rgba(255, 255, 255, .7);
+   display: inline-block;
+   margin-top: .6rem;
+   padding: .8rem 2.2rem;
+   font-size: 1.5rem;
+   letter-spacing: .04em;
+   color: rgba(255, 255, 255, .75);
+   background-color: rgba(255, 255, 255, .07);
+   border: .1rem solid rgba(224, 177, 131, .3);
+   border-radius: 99rem;
+   animation: headingIn .6s ease .12s both;
 }
 
 .heading p a {
@@ -194,6 +255,13 @@ hr {
    text-decoration: underline;
    text-underline-offset: .4rem;
    color: var(--white);
+}
+
+@keyframes headingIn {
+   from {
+      opacity: 0;
+      transform: translateY(1.2rem);
+   }
 }
 
 /* =========================================================
@@ -1903,8 +1971,21 @@ section:has(.team):not(:has(.row)) {
       font-size: 3.6rem;
    }
 
+   .heading {
+      padding: 4rem 2rem;
+      min-height: 17rem;
+   }
+
    .heading h3 {
       font-size: 3rem;
+   }
+
+   .heading::before {
+      font-size: 12rem;
+   }
+
+   .heading::after {
+      font-size: 10rem;
    }
 
    .products .cart-total {
